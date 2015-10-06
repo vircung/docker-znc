@@ -3,23 +3,43 @@
 # Options.
 DATADIR="/znc-data"
 
-# Build modules from source.
-if [ -d "${DATADIR}/modules" ]; then
-  # Store current directory.
-  cwd="$(pwd)"
+mkdir -p "${DATADIR}/modules"
 
-  # Find module sources.
-  modules=$(find "${DATADIR}/modules" -name "*.cpp")
+# Download some External Modules
 
-  # Build modules.
-  for module in $modules; do
-    cd "$(dirname "$module")"
-    znc-buildmod "$module"
-  done
-
-  # Go back to original directory.
-  cd "$cwd"
+# colloquy
+if [ ! -f "${DATADIR}/modules/colloquy.so" ]; then
+  wget -O "${DATADIR}/modules/colloquy.cpp" http://github.com/wired/colloquypush/raw/master/znc/colloquy.cpp
+  wget https://patch-diff.githubusercontent.com/raw/wired/colloquypush/pull/46.patch
+  patch -p2 "${DATADIR}/modules/colloquy.cpp" 46.patch
+  rm -f 46.patch
 fi
+
+# push
+if [ ! -f "${DATADIR}/modules/push.so" ]; then
+  wget -O "${DATADIR}/modules/push.cpp" http://github.com/jreese/znc-push/raw/master/push.cpp
+fi
+
+# part_detach
+if [ ! -f "${DATADIR}/modules/part_detach.py" ]; then
+  wget -O "${DATADIR}/modules/part_detach.py" http://github.com/Nothing4You/znc-modules/raw/master/part_detach.py
+fi
+
+# Build modules from source.
+# Store current directory.
+cwd="$(pwd)"
+
+# Find module sources.
+modules=$(find "${DATADIR}/modules" -name "*.cpp")
+
+# Build modules.
+for module in $modules; do
+  cd "$(dirname "$module")"
+  znc-buildmod "$module"
+done
+
+# Go back to original directory.
+cd "$cwd"
 
 # Create default config if it doesn't exist
 if [ ! -f "${DATADIR}/configs/znc.conf" ]; then
