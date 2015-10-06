@@ -52,7 +52,7 @@ if [ ! -f "${DATADIR}/znc.pem" ]; then
   echo "Please create ${DATADIR}/znc.pem"
   echo "cd ~/.znc"
   echo "openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes"
-  echo "cp key.pem > znc.pem"
+  echo "cp key.pem znc.pem"
   echo "cat cert.pem >> znc.pem"
 fi
 
