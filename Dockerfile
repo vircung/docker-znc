@@ -13,6 +13,7 @@ RUN apt-get update && DEBIAN_FRONTEND=non_interactive apt-get install -y \
     patch \
     pkg-config \
     python3-dev \
+    python3-requests \
     sudo \
     swig3.0 \
     tcl \
