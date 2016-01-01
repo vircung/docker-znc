@@ -30,6 +30,11 @@ if [ ! -f "${DATADIR}/modules/aka.py" ]; then
   wget -O "${DATADIR}/modules/aka.py" https://github.com/AwwCookies/ZNC-Modules/raw/master/Aka/aka.py
 fi
 
+# Clientaway
+if [ ! -f "${DATADIR}/modules/clientaway.so" ]; then
+  wget -O "${DATADIR}/modules/clientaway.cpp" https://github.com/kylef/znc-contrib/raw/master/clientaway.cpp
+fi
+
 # Build modules from source.
 # Store current directory.
 cwd="$(pwd)"

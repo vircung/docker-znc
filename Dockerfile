@@ -7,6 +7,7 @@ RUN apt-get update && DEBIAN_FRONTEND=non_interactive apt-get install -y \
     build-essential \
     libcurl4-openssl-dev \
     libicu-dev \
+    libjson-perl \
     libperl-dev \
     libsasl2-dev \
     libssl-dev \
