@@ -1,7 +1,7 @@
 FROM debian:jessie
 MAINTAINER Nathan Handler <nathan.handler@gmail.com>
 
-ENV ZNC_VERSION 1.6.1
+ENV ZNC_VERSION 1.6.2
 
 RUN apt-get update && DEBIAN_FRONTEND=non_interactive apt-get install -y \
     build-essential \
