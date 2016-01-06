@@ -52,15 +52,6 @@ if [ ! -f "${DATADIR}/configs/znc.conf" ]; then
   cp /znc.conf.default "${DATADIR}/configs/znc.conf"
 fi
 
-# Create the self-signed SSL cert if it doesn't exist
-if [ ! -f "${DATADIR}/znc.pem" ]; then
-  echo "Please create ${DATADIR}/znc.pem"
-  echo "cd ~/.znc"
-  echo "openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes"
-  echo "cp key.pem znc.pem"
-  echo "cat cert.pem >> znc.pem"
-fi
-
 # Make sure $DATADIR is owned by znc user. This effects ownership of the
 # mounted directory on the host machine too.
 chown -R znc:znc "$DATADIR"
