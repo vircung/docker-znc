@@ -25,6 +25,17 @@ If you've let the container create a default config for you, the default usernam
 
 I'd recommend you create your own user by cloning the admin user, then ensure your new cloned user is set to be an admin user. Once you login with your new user go ahead and delete the default admin user.
 
+## SSL access
+To enable SSL access to both HTTP and IRC, execute the following commands from within the DATADIR:
+
+```
+openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes
+cat cert.pem > znc.pem
+cat key.pem >> znc.pem
+```
+
+Afterwards, shut down your container and start it up again.
+
 ## External Modules
 If you need to use external modules, simply place the original `*.cpp` source files for the modules in your `${HOME}/.znc/modules` directory. The startup script will automatically build all .cpp files in that directory with `znc-buildmod` every time you start the container.
 
@@ -33,7 +44,7 @@ This ensures that you can easily add new external modules to your znc configurat
 ## Notes on DATADIR
 ZNC needs a data/config directory to run. Within the container it uses `/znc-data`, so to retain this data when shutting down a container, you should mount a directory from the host. Hence `-v ${HOME}/.znc:/znc-data` is part of the instructions above.
 
-As ZNC needs to run as it's own user within the container, the directory will have it's ownership changed to UID 1000 (user) and GID 1000 (group). Meaning after the first run, you might need root access to manually modify the data directory.
+As ZNC needs to run as it's own user within the container, the directory will have it's ownership changed to UID 1000 (user) and GID 1000 (group). Meaning after the first run, you might need root access to modify the data directory from outside the container.
 
 ## Passing Custom Arguments to ZNC
 As `docker run` passes all arguments after the image name to the entrypoint script, the [start-znc][] script simply passes all arguments along to ZNC.
