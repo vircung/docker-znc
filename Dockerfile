@@ -42,3 +42,5 @@ VOLUME /znc-data
 EXPOSE 6667
 ENTRYPOINT ["/entrypoint.sh"]
 CMD [""]
+
+# vim: tabstop=4 expandtab fenc=utf-8
