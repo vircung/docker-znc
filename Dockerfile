@@ -1,9 +1,10 @@
 FROM debian:jessie
 MAINTAINER Nathan Handler <nathan.handler@gmail.com>
 
-ENV ZNC_VERSION 1.6.2
+ENV ZNC_VERSION 1.6.3
+ONBUILD ENV DEBIAN_FRONTEND=non_interactive
 
-RUN apt-get update && DEBIAN_FRONTEND=non_interactive apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     libcurl4-openssl-dev \
     libicu-dev \
@@ -41,3 +42,5 @@ VOLUME /znc-data
 EXPOSE 6667
 ENTRYPOINT ["/entrypoint.sh"]
 CMD [""]
+
+# vim: tabstop=4 expandtab fenc=utf-8
