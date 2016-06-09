@@ -7,7 +7,7 @@ build:
 
 .PHONY: run
 run:
-	docker run -d -p 29492:6667 --name $(NAME) -v ${HOME}/.znc:/znc-data ${USER}/znc
+	docker run --restart=always -d -p 29492:6667 --name $(NAME) -v ${HOME}/.znc:/znc-data ${USER}/znc
 
 .PHONY: debug
 debug:
