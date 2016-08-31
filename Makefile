@@ -1,5 +1,5 @@
 NO_CACHE ?= true
-NAME ?= znc
+NAME ?= ${USER}-znc
 
 .PHONY: build
 build:
