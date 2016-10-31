@@ -17,10 +17,10 @@ start:
 	docker start $(NAME)
 
 stop:
-	docker stop $(NAME)
+	docker stop $(NAME) || true
 
 rm: stop
-	docker rm $(NAME)
+	docker rm $(NAME) || true
 
 clean: stop rm
 	docker rmi $(NAME)
