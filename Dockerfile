@@ -1,7 +1,7 @@
 FROM debian:jessie
 MAINTAINER Nathan Handler <nathan.handler@gmail.com>
 
-ENV ZNC_VERSION 1.6.3
+ENV ZNC_VERSION 1.6.4
 ONBUILD ENV DEBIAN_FRONTEND=non_interactive
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
