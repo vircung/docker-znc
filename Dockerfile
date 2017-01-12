@@ -32,8 +32,7 @@ RUN apt-get autoremove -y
 RUN apt-get clean
 RUN rm -rf /src* /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN adduser -S znc
-RUN addgroup -S znc
+RUN useradd znc
 ADD docker-entrypoint.sh /entrypoint.sh
 ADD znc.conf.default /znc.conf.default
 RUN chmod 644 /znc.conf.default
