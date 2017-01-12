@@ -1,21 +1,36 @@
-# version 1.6.3
-# docker-version 1.10.3
-FROM alpine:3.3
-MAINTAINER Jim Myhrberg "contact@jimeh.me"
+FROM debian:jessie
+MAINTAINER Nathan Handler <nathan.handler@gmail.com>
 
-ENV ZNC_VERSION 1.6.3
+ENV ZNC_VERSION 1.6.4
+ONBUILD ENV DEBIAN_FRONTEND=non_interactive
 
-RUN apk add --no-cache sudo bash autoconf automake gettext-dev make g++ \
-               openssl-dev pkgconfig perl-dev swig zlib-dev \
-    && mkdir -p /src \
-    && cd /src \
-    && wget "http://znc.in/releases/archive/znc-${ZNC_VERSION}.tar.gz" \
-    && tar -zxf "znc-${ZNC_VERSION}.tar.gz" \
-    && cd "znc-${ZNC_VERSION}" \
-    && ./configure \
-    && make \
-    && make install \
-    && rm -rf /var/cache/apk/*
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    libcurl4-openssl-dev \
+    libicu-dev \
+    libjson-perl \
+    libperl-dev \
+    libsasl2-dev \
+    libssl-dev \
+    patch \
+    pkg-config \
+    python3-dev \
+    python3-requests \
+    sudo \
+    swig3.0 \
+    tcl \
+    tcl-dev \
+    wget
+RUN mkdir -p /src
+RUN wget --quiet --directory-prefix=/src "http://znc.in/releases/archive/znc-${ZNC_VERSION}.tar.gz"
+RUN tar xvzf "/src/znc-${ZNC_VERSION}.tar.gz" --directory /src
+RUN cd "/src/znc-${ZNC_VERSION}" \
+    && ./configure --enable-perl --enable-python --enable-tcl --enable-cyrus \
+    && (make || make) \
+    && make install
+RUN apt-get autoremove -y
+RUN apt-get clean
+RUN rm -rf /src* /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN adduser -S znc
 RUN addgroup -S znc
@@ -28,3 +43,5 @@ VOLUME /znc-data
 EXPOSE 6667
 ENTRYPOINT ["/entrypoint.sh"]
 CMD [""]
+
+# vim: tabstop=4 expandtab fenc=utf-8
