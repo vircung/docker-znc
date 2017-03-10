@@ -35,6 +35,11 @@ if [ ! -f "${DATADIR}/modules/clientaway.so" ]; then
   wget -O "${DATADIR}/modules/clientaway.cpp" https://github.com/kylef/znc-contrib/raw/master/clientaway.cpp
 fi
 
+# Clientbuffer
+if [ ! -f "${DATADIR}/modules/clientbuffer.so" ]; then
+  wget -O "${DATADIR}/modules/clientbuffer.cpp" https://github.com/jpnurmi/znc-clientbuffer/raw/master/clientbuffer.cpp
+fi
+
 # Build modules from source.
 # Store current directory.
 cwd="$(pwd)"
