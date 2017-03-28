@@ -1,11 +1,13 @@
 FROM debian:jessie
 MAINTAINER Nathan Handler <nathan.handler@gmail.com>
 
-ENV ZNC_VERSION 1.6.3
+ENV ZNC_VERSION 1.6.5
 ONBUILD ENV DEBIAN_FRONTEND=non_interactive
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    automake \
     build-essential \
+    git \
     libcurl4-openssl-dev \
     libicu-dev \
     libjson-perl \
@@ -22,9 +24,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     tcl-dev \
     wget
 RUN mkdir -p /src
-RUN wget --quiet --directory-prefix=/src "http://znc.in/releases/archive/znc-${ZNC_VERSION}.tar.gz"
-RUN tar xvzf "/src/znc-${ZNC_VERSION}.tar.gz" --directory /src
-RUN cd "/src/znc-${ZNC_VERSION}" \
+RUN cd /src && git clone https://github.com/znc/znc.git
+RUN cd "/src/znc" \
+    && git checkout "tags/znc-${ZNC_VERSION}" \
+    && git submodule update --init --recursive \
+    && ./autogen.sh \
     && ./configure --enable-perl --enable-python --enable-tcl --enable-cyrus \
     && (make || make) \
     && make install
