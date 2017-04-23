@@ -25,6 +25,11 @@ if [ ! -f "${DATADIR}/modules/part_detach.py" ]; then
   wget -O "${DATADIR}/modules/part_detach.py" http://github.com/Nothing4You/znc-modules/raw/master/part_detach.py
 fi
 
+# mutter
+if [ ! -f "${DATADIR}/modules/mutter.py" ]; then
+  wget -O "${DATADIR}/modules/mutter.py" https://bitbucket.org/jmclough/mutter-push/raw/master/mutter.py
+fi
+
 # Aka
 if [ ! -f "${DATADIR}/modules/aka.py" ]; then
   wget -O "${DATADIR}/modules/aka.py" https://github.com/AwwCookies/ZNC-Modules/raw/master/Aka/aka.py
