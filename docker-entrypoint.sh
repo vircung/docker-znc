@@ -7,13 +7,14 @@ mkdir -p "${DATADIR}/modules"
 
 # Download some External Modules
 
-# colloquy
-if [ ! -f "${DATADIR}/modules/colloquy.so" ]; then
-  wget -O "${DATADIR}/modules/colloquy.cpp" http://github.com/wired/colloquypush/raw/master/znc/colloquy.cpp
-  wget https://patch-diff.githubusercontent.com/raw/wired/colloquypush/pull/46.patch
-  patch -p2 "${DATADIR}/modules/colloquy.cpp" 46.patch
-  rm -f 46.patch
-fi
+# # colloquy
+# if [ ! -f "${DATADIR}/modules/colloquy.so" ]; then
+#   wget -O "${DATADIR}/modules/colloquy.cpp" http://github.com/wired/colloquypush/raw/master/znc/colloquy.cpp
+#   wget https://patch-diff.githubusercontent.com/raw/wired/colloquypush/pull/46.patch
+#   patch -p2 "${DATADIR}/modules/colloquy.cpp" 46.patch
+#   rm -f 46.patch
+# fi
+rm -f "${DATADIR}/modules/colloquy.cpp" "${DATADIR}/modules/colloquy.so"
 
 # push
 if [ ! -f "${DATADIR}/modules/push.so" ]; then
