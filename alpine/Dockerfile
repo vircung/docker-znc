@@ -25,15 +25,15 @@ RUN apk add --no-cache --virtual=build-dependencies \
   tar \
   tcl-dev
 
-ADD ../docker-install.sh /install.sh
+ADD docker-install.sh /install.sh
 CMD ["./install.sh"]
 
 RUN apk del --purge \
   build-dependencies
 
 RUN adduser -D znc
-ADD ../docker-entrypoint.sh /entrypoint.sh
-ADD ../znc.conf.default /znc.conf.default
+ADD docker-entrypoint.sh /entrypoint.sh
+ADD znc.conf.default /znc.conf.default
 RUN chmod 644 /znc.conf.default
 
 VOLUME /znc-data
